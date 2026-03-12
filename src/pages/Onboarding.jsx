@@ -78,6 +78,7 @@ export default function Onboarding() {
         fecha_inicio,
       })
 
+      console.log('RESPUESTA APPS SCRIPT:', res)
       if (res.ok) {
         setUser({ user_id, nombre: nombre.trim(), ...respuestas, fecha_inicio })
       } else {
