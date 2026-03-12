@@ -60,12 +60,11 @@ export default function Onboarding() {
   }
 
    const confirmar = async () => {
-    console.log('confirmar ejecutado', { nombre, respuestas })
     if (!nombre.trim()) return
     setLoading(true)
     setError(null)
 
-    const user_id     = storage.getOrCreateUserId()
+    const user_id      = storage.getOrCreateUserId()
     const fecha_inicio = new Date().toISOString().split('T')[0]
 
     try {
@@ -79,15 +78,15 @@ export default function Onboarding() {
         fecha_inicio,
       })
 
-      console.log('RESPUESTA APPS SCRIPT:', res)
-      if (res.ok === true || res.ok === 'true') {
+      if (res && res.ok === true) {
         setUser({ user_id, nombre: nombre.trim(), ...respuestas, fecha_inicio })
       } else {
-        setError(res.error || 'Error generando el plan. Intenta de nuevo.')
+        setError(res?.error || 'Error generando el plan. Intenta de nuevo.')
       }
     } catch (e) {
-      console.error('ERROR CATCH:', e)
-      setError('No se pudo conectar. Revisa tu conexión.')
+      setError('No se pudo conectar: ' + e.message)
+    } finally {
+      setLoading(false)
     }
   }
 
