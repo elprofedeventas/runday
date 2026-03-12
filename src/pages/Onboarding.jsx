@@ -59,7 +59,8 @@ export default function Onboarding() {
     }
   }
 
-  const confirmar = async () => {
+   const confirmar = async () => {
+    console.log('confirmar ejecutado', { nombre, respuestas })
     if (!nombre.trim()) return
     setLoading(true)
     setError(null)
