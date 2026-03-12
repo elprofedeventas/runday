@@ -79,7 +79,7 @@ export default function Onboarding() {
       })
 
       console.log('RESPUESTA APPS SCRIPT:', res)
-      if (res.ok) {
+      if (res.ok === true || res.ok === 'true') {
         setUser({ user_id, nombre: nombre.trim(), ...respuestas, fecha_inicio })
       } else {
         setError(res.error || 'Error generando el plan. Intenta de nuevo.')
