@@ -78,7 +78,8 @@ export default function Onboarding() {
       })
 
       if (res && res.ok === true) {
-        setUser({ user_id, nombre: nombre.trim(), ...respuestas, fecha_inicio })
+      setUser({ user_id, nombre: nombre.trim(), ...respuestas, fecha_inicio })
+      window.location.href = '/'
       } else {
         setError(res?.error || 'Error generando el plan. Intenta de nuevo.')
       }
