@@ -7,7 +7,6 @@ export function useUser() {
   const setUser = (data) => {
     storage.setUser(data)
     setUserState(data)
-    window.location.href = '/'
   }
 
   const clearUser = () => {
