@@ -8,7 +8,7 @@ import Perfil     from './pages/Perfil'
 import NavBar     from './components/NavBar'
 
 export default function App() {
-  const { hasCompletedOnboarding } = useUser()
+  const { user, hasCompletedOnboarding } = useUser()
 
   if (!hasCompletedOnboarding) {
     return (
