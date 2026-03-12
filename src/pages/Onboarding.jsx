@@ -46,8 +46,8 @@ export default function Onboarding() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState(null)
 
-  const pasosTotal = PASOS.length + 1 // +1 para nombre
-  const progreso   = ((paso) / pasosTotal) * 100
+  const pasosTotal = PASOS.length + 1
+  const progreso   = (paso / pasosTotal) * 100
 
   const elegir = (valor) => {
     const nuevas = { ...respuestas, [PASOS[paso].id]: valor }
@@ -55,16 +55,17 @@ export default function Onboarding() {
     if (paso < PASOS.length - 1) {
       setPaso(paso + 1)
     } else {
-      setPaso(PASOS.length) // paso final: nombre
+      setPaso(PASOS.length)
     }
   }
 
-   const confirmar = async () => {
+  const confirmar = async () => {
     if (!nombre.trim()) return
     setLoading(true)
     setError(null)
 
-    const user_id      = storage.getOrCreateUserId()
+    // Siempre generar un user_id nuevo en el onboarding
+    const user_id      = 'USR_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7).toUpperCase()
     const fecha_inicio = new Date().toISOString().split('T')[0]
 
     try {
@@ -95,7 +96,6 @@ export default function Onboarding() {
   return (
     <div className="page" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
 
-      {/* Header */}
       <div style={{ marginBottom: 'var(--sp-xl)' }}>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', color: 'var(--rd-red)', marginBottom: 4 }}>
           RUNDAY
@@ -108,9 +108,7 @@ export default function Onboarding() {
         </p>
       </div>
 
-      {/* Contenido del paso */}
       <div style={{ flex: 1 }}>
-
         {paso < PASOS.length ? (
           <div style={{ animation: 'pageIn 0.3s ease' }}>
             <h2 style={{ fontSize: '2rem', marginBottom: 8 }}>{pasoActual.pregunta}</h2>
@@ -153,7 +151,6 @@ export default function Onboarding() {
           </div>
 
         ) : (
-          // Paso final: nombre
           <div style={{ animation: 'pageIn 0.3s ease' }}>
             <h2 style={{ fontSize: '2rem', marginBottom: 8 }}>¿Cómo te llamas?</h2>
             <p style={{ marginBottom: 'var(--sp-xl)' }}>Tu plan ya está listo. Solo falta tu nombre.</p>
