@@ -85,9 +85,8 @@ export default function Onboarding() {
         setError(res.error || 'Error generando el plan. Intenta de nuevo.')
       }
     } catch (e) {
+      console.error('ERROR CATCH:', e)
       setError('No se pudo conectar. Revisa tu conexión.')
-    } finally {
-      setLoading(false)
     }
   }
 
