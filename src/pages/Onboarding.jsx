@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { api } from '../utils/api'
-import { storage } from '../utils/storage'
 import { useUser } from '../hooks/useUser'
 
 const PASOS = [
@@ -9,10 +8,10 @@ const PASOS = [
     pregunta: '¿Cuál es tu meta?',
     subtitulo: 'Tu plan se construye alrededor de esto',
     opciones: [
-      { valor: '5k',   emoji: '🏁', label: 'Terminar un 5K' },
-      { valor: '10k',  emoji: '⚡', label: 'Mejorar en 10K' },
-      { valor: '21k',  emoji: '🏆', label: 'Media maratón' },
-      { valor: 'salud',emoji: '❤️', label: 'Correr por salud' },
+      { valor: '5k',    emoji: '🏁', label: 'Terminar un 5K' },
+      { valor: '10k',   emoji: '⚡', label: 'Mejorar en 10K' },
+      { valor: '21k',   emoji: '🏆', label: 'Media maratón' },
+      { valor: 'salud', emoji: '❤️', label: 'Correr por salud' },
     ]
   },
   {
@@ -64,15 +63,14 @@ export default function Onboarding() {
     setLoading(true)
     setError(null)
 
-    // Siempre generar un user_id nuevo en el onboarding
     const user_id      = 'USR_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7).toUpperCase()
     const fecha_inicio = new Date().toISOString().split('T')[0]
 
     try {
       const res = await api.generarPlan({
         user_id,
-        nombre: nombre.trim(),
-        email: '',
+        nombre:      nombre.trim(),
+        email:       '',
         nivel:       respuestas.nivel,
         objetivo:    respuestas.objetivo,
         dias_semana: respuestas.dias_semana,
